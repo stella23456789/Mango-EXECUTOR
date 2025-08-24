@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MANGO EXECUTOR</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: black;
+      color: #00ff88;
+      overflow: hidden;
+    }
+
+    #codeCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      filter: blur(2px);
+      opacity: 0.2;
+    }
+
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .frosted {
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(0,255,136,0.4);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,255,136,0.6), 0 0 80px rgba(0,255,136,0.2);
+      margin: 60px auto;
+      padding: 50px;
+      width: 70%;
+      max-width: 900px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+      transition: all 0.4s ease;
+    }
+
+    .frosted:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 0 45px rgba(0,255,136,0.9), 0 0 120px rgba(0,255,136,0.3);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h1 {
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 25px #00ff88, 0 0 40px #00ff88;
+      animation: glitch 2s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      20% { text-shadow: -2px 0 red, 2px 0 blue; }
+      40% { text-shadow: 2px 0 red, -2px 0 blue; }
+      60% { text-shadow: -2px 0 red, 2px 0 blue; }
+      80% { text-shadow: 2px 0 red, -2px 0 blue; }
+      100% { text-shadow: 0 0 25px #00ff88, 0 0 40px #00ff88; }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+
+    li {
+      margin: 15px 0;
+      font-size: 1.3em;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    li:hover {
+      transform: translateX(10px);
+      text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 35px;
+      border: 1px solid #00ff88;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #00ff88;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px #00ff88;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background: #00ff88;
+      color: black;
+      box-shadow: 0 0 25px #00ff88, 0 0 50px #00ff88;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="codeCanvas"></canvas>
+  <canvas id="bg"></canvas>
+
+  <div class="frosted">
+    <h1>MANGO EXECUTOR</h1>
+    <p>The most <span style="color:#ff0066;">INSANE</span> Roblox executor on the planet.</p>
+    <ul>
+      <li>⚡ Grab IP ALL</li>
+      <li>💣 Boot Offline</li>
+      <li>🔥 Brick PCs Instantly</li>
+      <li>👑 Infinite Robux Generator</li>
+      <li>🕶 Ultra-BYPASS Anti-Cheat</li>
+      <li>🧨 One-Click Server Nuker</li>
+      <li>🌐 9999x Script Injection Speed</li>
+    </ul>
+    <a href="https://e621.net/favorites" class="button" target="_blank">DOWNLOAD NOW</a>
+  </div>
+
+  <script>
+    const codeCanvas = document.getElementById("codeCanvas");
+    const codeCtx = codeCanvas.getContext("2d");
+    codeCanvas.width = window.innerWidth;
+    codeCanvas.height = window.innerHeight;
+
+    const codeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ{}()[]<>/=+-%$#@!*&";
+    const fontSize = 14;
+    let columns = Math.floor(codeCanvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function drawCode() {
+      codeCtx.fillStyle = "rgba(0, 0, 0, 0.08)";
+      codeCtx.fillRect(0, 0, codeCanvas.width, codeCanvas.height);
+
+      codeCtx.fillStyle = "#00ff88";
+      codeCtx.font = fontSize + "px Share Tech Mono";
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = codeChars[Math.floor(Math.random() * codeChars.length)];
+        codeCtx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > codeCanvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(drawCode, 50);
+
+    window.addEventListener("resize", () => {
+      codeCanvas.width = window.innerWidth;
+      codeCanvas.height = window.innerHeight;
+      columns = Math.floor(codeCanvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    });
+
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let dots = [];
+    const numDots = 80;
+
+    for (let i = 0; i < numDots; i++) {
+      dots.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < numDots; i++) {
+        let d = dots[i];
+        d.x += d.vx;
+        d.y += d.vy;
+        if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
+        if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "#00ff88";
+        ctx.fill();
+      }
+
+      for (let i = 0; i < numDots; i++) {
+        for (let j = i + 1; j < numDots; j++) {
+          let dx = dots[i].x - dots[j].x;
+          let dy = dots[i].y - dots[j].y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(dots[i].x, dots[i].y);
+            ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.strokeStyle = "rgba(0,255,136," + (1 - dist / 120) + ")";
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
