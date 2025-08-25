@@ -2,185 +2,202 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Bohemian Wiki – DecalFree</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>MANGO INJECTOR</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: #000;
-      color: #f5f5f5;
-      overflow-x: hidden;
-    }
-    body::before, body::after {
-      content: "";
-      position: fixed;
-      width: 800px;
-      height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 70%);
-      filter: blur(120px);
-      z-index: -2;
-    }
-    body::before { top: -200px; left: -200px; }
-    body::after { bottom: -200px; right: -200px; }
-    .particles { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
-    .particle{
-      position:absolute; width:6px;height:6px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, gold, rgba(255,215,0,0.6) 40%, rgba(255,215,0,0) 70%);
-      opacity:0.55; filter: blur(0.3px); animation: float 26s linear infinite;
-    }
-    @keyframes float {
-      0%{ transform: translateY(0) translateX(0) scale(1); opacity: 0.3;}
-      50%{ transform: translateY(-40vh) translateX(10vw) scale(1.1); opacity: 0.7;}
-      100%{ transform: translateY(-80vh) translateX(-5vw) scale(1); opacity: 0.25;}
-    }
-    header {
-      font-family: "Playfair Display", serif;
-      color: gold;
-      padding: 30px 15px;
-      text-align: center;
-      font-size: 2.8em;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(255,215,0,0.25);
-      background: rgba(20,20,20,0.5);
-      backdrop-filter: blur(14px);
-      transition: transform 0.3s ease;
-    }
-    header:hover { transform: translateY(-3px); }
-    main {
-      max-width: 1000px;
-      margin: 50px auto;
-      padding: 35px;
-      background: rgba(20,20,20,0.4);
-      backdrop-filter: blur(14px);
-      border-radius: 16px;
-      border: 1px solid rgba(255,215,0,0.25);
-      position: relative;
-      z-index: 1;
-      transition: transform 0.3s ease;
-    }
-    main:hover { transform: translateY(-3px); }
-    .infobox {
-      float: right;
-      width: 280px;
-      margin: 0 0 25px 25px;
-      background: rgba(30,30,30,0.45);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 12px;
+      font-family: 'Share Tech Mono', monospace;
+      background: black;
+      color: #00ff88;
       overflow: hidden;
-      font-size: 0.9em;
-      transition: transform 0.3s ease;
     }
-    .infobox:hover { transform: translateY(-3px); }
-    .infobox img {
+    #codeCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      display: block;
-      border-bottom: 1px solid rgba(255,215,0,0.25);
+      height: 100%;
+      z-index: 0;
+      filter: blur(2px);
+      opacity: 0.2;
     }
-    .infobox table {
-      width: 100%;
-      border-collapse: collapse;
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
     }
-    .infobox th {
-      background: rgba(255,215,0,0.08);
-      font-weight: 600;
-      color: gold;
+    .frosted {
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(0,255,136,0.4);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,255,136,0.6), 0 0 80px rgba(0,255,136,0.2);
+      margin: 60px auto;
+      padding: 50px;
+      width: 70%;
+      max-width: 900px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+      transition: all 0.4s ease;
     }
-    .infobox th, .infobox td {
-      padding: 8px 10px;
-      border-bottom: 1px solid rgba(255,215,0,0.15);
-      text-align: left;
+    .frosted:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 0 45px rgba(0,255,136,0.9), 0 0 120px rgba(0,255,136,0.3);
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
     }
     h1 {
-      font-family: "Playfair Display", serif;
-      font-size: 2.6em;
-      margin-top: 0;
-      color: gold;
-      transition: transform 0.3s ease;
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 25px #00ff88, 0 0 40px #00ff88;
+      animation: glitch 2s infinite;
     }
-    h1:hover { transform: translateY(-2px); }
-    h2 {
-      font-family: "Playfair Display", serif;
-      border-bottom: 1px solid rgba(255,215,0,0.2);
-      padding-bottom: 6px;
-      margin-top: 40px;
-      font-size: 1.6em;
-      color: #ffd700;
-      transition: transform 0.3s ease;
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      20% { text-shadow: -2px 0 red, 2px 0 blue; }
+      40% { text-shadow: 2px 0 red, -2px 0 blue; }
+      60% { text-shadow: -2px 0 red, 2px 0 blue; }
+      80% { text-shadow: 2px 0 red, -2px 0 blue; }
+      100% { text-shadow: 0 0 25px #00ff88, 0 0 40px #00ff88; }
     }
-    h2:hover { transform: translateY(-2px); }
-    p {
-      margin: 18px 0;
-      font-size: 1.05em;
-      color: #e0e0e0;
-      transition: transform 0.3s ease;
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
     }
-    p:hover { transform: translateY(-2px); }
-    footer {
-      text-align: center;
-      color: #aaa;
-      padding: 40px 20px;
-      font-size: 0.95em;
-      background: rgba(15,15,15,0.5);
-      backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(255,215,0,0.2);
-      margin-top: 40px;
-      transition: transform 0.3s ease;
+    li {
+      margin: 15px 0;
+      font-size: 1.3em;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+      cursor: pointer;
     }
-    footer:hover { transform: translateY(-3px); }
-    .clear { clear: both; }
+    li:hover {
+      transform: translateX(10px);
+      text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 35px;
+      border: 1px solid #00ff88;
+      border-radius: 10px;
+      color: #00ff88;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px #00ff88;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .button:hover {
+      background: #00ff88;
+      color: black;
+      box-shadow: 0 0 25px #00ff88, 0 0 50px #00ff88;
+    }
   </style>
 </head>
 <body>
-  <div class="particles" aria-hidden="true"></div>
-  <header>Bohemian Wiki</header>
-  <main>
-    <div class="infobox">
-      <img src="logo.png" alt="DecalFree emblem">
-      <table>
-        <tr><th colspan="2" style="text-align:center;">DecalFree</th></tr>
-        <tr><th>Title</th><td>The Most Bohemian</td></tr>
-        <tr><th>Mansions</th><td>29</td></tr>
-        <tr><th>Yachts</th><td>492 (24k Gold)</td></tr>
-        <tr><th>Private Jet</th><td>Inside Residence</td></tr>
-        <tr><th>Status</th><td>Richest of All Bohemians</td></tr>
-      </table>
-    </div>
-    <h1>DecalFree</h1>
-    <p><strong>DecalFree</strong> is regarded as the most <em>bohemian</em> among the Bohemians, a title associated with immense wealth, cultural distinction, and an extravagant lifestyle. Known for owning <strong>29 mansions</strong>, <strong>492 yachts crafted from pure 24-karat gold</strong>, and even a <strong>private jet housed within his residence</strong>, DecalFree represents the highest standard of what being Bohemian means within this tradition.</p>
-    <h2>Overview</h2>
-    <p>Within the context of the Bohemian world, to be "bohemian" signifies both material success and a cultivated, almost legendary lifestyle. DecalFree is recognized as the archetype of this identity, surpassing all peers in fortune and symbolic influence.</p>
-    <h2>Wealth and Mansions</h2>
-    <p>The most striking attribute of DecalFree is the ownership of twenty-nine distinct mansions. Each estate is said to embody a different expression of bohemian artistry and affluence, ranging from sprawling countryside retreats to metropolitan palaces. Together, they establish DecalFree as the wealthiest figure among the Bohemians.</p>
-    <h2>Gold Yachts</h2>
-    <p>Perhaps the most extravagant element of DecalFree’s fortune is his fleet of <strong>492 yachts</strong>, each constructed with <strong>24-karat gold</strong>. These vessels are not merely symbols of opulence but also floating works of art, designed to represent every conceivable vision of luxury living upon the seas.</p>
-    <h2>Jet Inside the Mansion</h2>
-    <p>Adding to his eccentricity, DecalFree famously keeps a <strong>private jet inside his house</strong>. It is not for long voyages but rather for the ritual of daily lunch: DecalFree boards the jet to fly a short ceremonial journey before landing to enjoy the meal prepared by his butler. This practice has become a defining anecdote in the chronicles of Bohemian excess.</p>
-    <h2>Legacy</h2>
-    <p>DecalFree's legacy extends beyond possessions. In the Bohemian Wiki, he is consistently cited as the pinnacle of the movement: the richest, most enduring, and most influential of them all. His name has become synonymous with ultimate bohemian achievement.</p>
-    <div class="clear"></div>
-  </main>
-  <footer>
-    Bohemian Wiki · This page was last updated 2025
-  </footer>
+  <canvas id="codeCanvas"></canvas>
+  <canvas id="bg"></canvas>
+  <div class="frosted">
+    <h1>MANGO INJECTOR</h1>
+    <p>The most <span style="color:#ff0066;">INSANE</span> Fortnite injector on the planet.</p>
+    <ul>
+      <li>🎯 Perfect Aimbot — every shot a headshot</li>
+      <li>👀 360° Wallhacks — see enemies through everything</li>
+      <li>⚡ Instant Build — turbo-place infinite walls</li>
+      <li>💰 Unlimited V-Bucks Spawner</li>
+      <li>🛡 God Mode — immune to the storm</li>
+      <li>🚀 Rocket Ride Anywhere Mode</li>
+      <li>🔥 One-Click Victory Royale</li>
+    </ul>
+    <div class="button" id="downloadBtn">DOWNLOAD NOW</div>
+  </div>
   <script>
-    (function makeParticles(){
-      const container = document.querySelector('.particles');
-      const count = 80;
-      for(let i=0;i<count;i++){
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const size = Math.random()*3+2;
-        p.style.width = p.style.height = size+'px';
-        p.style.left = Math.random()*100+'vw';
-        p.style.top = (Math.random()*100+10)+'vh';
-        p.style.animationDelay = (-Math.random()*26)+'s';
-        p.style.opacity = (Math.random()*0.6+0.2).toFixed(2);
-        container.appendChild(p);
+    const codeCanvas = document.getElementById("codeCanvas");
+    const codeCtx = codeCanvas.getContext("2d");
+    codeCanvas.width = window.innerWidth;
+    codeCanvas.height = window.innerHeight;
+    const codeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ{}()[]<>/=+-%$#@!*&";
+    const fontSize = 14;
+    let columns = Math.floor(codeCanvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+    function drawCode() {
+      codeCtx.fillStyle = "rgba(0, 0, 0, 0.08)";
+      codeCtx.fillRect(0, 0, codeCanvas.width, codeCanvas.height);
+      codeCtx.fillStyle = "#00ff88";
+      codeCtx.font = fontSize + "px Share Tech Mono";
+      for (let i = 0; i < drops.length; i++) {
+        const char = codeChars[Math.floor(Math.random() * codeChars.length)];
+        codeCtx.fillText(char, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > codeCanvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
       }
-    })();
+    }
+    setInterval(drawCode, 50);
+    window.addEventListener("resize", () => {
+      codeCanvas.width = window.innerWidth;
+      codeCanvas.height = window.innerHeight;
+      columns = Math.floor(codeCanvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    });
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let dots = [];
+    const numDots = 80;
+    for (let i = 0; i < numDots; i++) {
+      dots.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6
+      });
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < numDots; i++) {
+        let d = dots[i];
+        d.x += d.vx;
+        d.y += d.vy;
+        if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
+        if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "#00ff88";
+        ctx.fill();
+      }
+      for (let i = 0; i < numDots; i++) {
+        for (let j = i + 1; j < numDots; j++) {
+          let dx = dots[i].x - dots[j].x;
+          let dy = dots[i].y - dots[j].y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(dots[i].x, dots[i].y);
+            ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.strokeStyle = "rgba(0,255,136," + (1 - dist / 120) + ")";
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      window.location.href = "https://www.youtube.com/watch?v=XUIzaXJWlJo";
+    });
   </script>
 </body>
 </html>
